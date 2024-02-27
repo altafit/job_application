@@ -1,0 +1,42 @@
+{% include "base.html" %}
+
+{% block body %}
+<h3>We Have Opening For Following Positions.</h3>
+<br>
+<td><a href="logout" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">Logout</a></td>
+<br><br>
+<br>
+<form method='post'>
+    {% csrf_token %}
+    <div class="form-group">
+        <input type="text" class="form-control" name='exp' id="exp",  placeholder="How many years of experience you have?" >
+      </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+  <br>
+<table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Sr.</th>
+        <th scope="col">Position</th>
+        <th scope="col">Experienced Required In Year</th>
+        <th scope="col">Apply</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% if position %}
+        {% for i in position %}
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{i.title}}</td>
+        <td>{{i.experience_year}}</td>
+        <td><a href="apply/{{i.id}}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Apply For This Role</a></td>
+      </tr>
+      {% endfor %}
+      {% else %}
+      <p>There is not any opening for your requeirement</p>
+      {% endif %}
+    </tbody>
+  </table>
+
+{% endblock body %}
